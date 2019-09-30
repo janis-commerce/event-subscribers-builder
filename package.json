@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A package for build event suscribers",
   "main": "index.js",
+  "bin": {
+    "event-subscribers-builder": "index.js"
+  },
   "scripts": {
     "test": "export TEST_ENV=true; mocha --exit -R nyan --recursive tests/",
     "test-ci": "nyc --reporter=html --reporter=text mocha --recursive tests/",
@@ -31,5 +34,11 @@
   ],
   "directories": {
     "test": "tests"
+  },
+  "dependencies": {
+    "@janiscommerce/endpoint-resolver": "^1.0.0",
+    "@janiscommerce/yml-builder": "^1.1.0",
+    "lllog": "^1.1.2",
+    "yaml": "^1.7.0"
   }
 }
