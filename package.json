@@ -4,7 +4,7 @@
   "description": "A package for build event suscribers",
   "main": "index.js",
   "bin": {
-    "event-subscribers-builder": "index.js"
+    "event-subscribers-builder": "run.js"
   },
   "scripts": {
     "test": "export TEST_ENV=true; mocha --exit -R nyan --recursive tests/",
@@ -37,8 +37,10 @@
   },
   "dependencies": {
     "@janiscommerce/endpoint-resolver": "^1.0.0",
-    "@janiscommerce/yml-builder": "^1.1.0",
+    "@janiscommerce/yml-builder": "^2.0.0",
+    "chalk": "^2.4.2",
     "lllog": "^1.1.2",
-    "yaml": "^1.7.0"
+    "yaml": "^1.7.0",
+    "yargs": "^14.0.0"
   }
 }
