@@ -58,7 +58,6 @@ events:
 				"x-janis-namespace": "some-namespace",
 				"x-janis-method": "some-method"
 			}
-			// ...
 		}
 	}
 }
