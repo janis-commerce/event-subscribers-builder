@@ -11,3 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `promisified-fs`
 - `documentation`
 - unit tests
+- examples in docs
+
+### Removed
+- unnecessary usage as module

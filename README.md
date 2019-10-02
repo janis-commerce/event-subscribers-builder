@@ -5,12 +5,7 @@
 
 A package for build event suscribers
 
-## Installation
-```sh
-npm install @janiscommerce/event-subscribers-builder
-```
-
-## Usage (command line)
+## Usage
 ```
 npx @janiscommerce/event-subscribers-builder
 ```
@@ -30,40 +25,57 @@ This utility does not receives any path parameters in the command line, it will 
 - **Before running this utility, you must build the api schemas first.**
 
 ## Examples
+This package will merge all the yamls from the directory `/path/to/root/events/src` into a single yaml file `/path/to/root/events/subscribers.yml` then will resolve all listeners namespaces and methods obtained from your built api schemas.
 
+### Event yaml example (before running the utility)
+```yaml
+events:
+  - service: some-service
+    entity: some-entity
+    event: some-event
+    listeners:
+      - namespace: some-namespace
+        method: some-method
+```
+
+### Built schemas example
+```json
+{
+	"servers": [
+		{
+			"url": "https://some-server.com/api",
+			"description": "The Beta API server",
+			"variables": {
+				"environment": {
+					"default": "beta"
+				}
+			}
+		}
+	],
+	"paths": {
+		"/some-path": {
+			"get": {
+				"x-janis-namespace": "some-namespace",
+				"x-janis-method": "some-method"
+			}
+			// ...
+		}
+	}
+}
+```
+
+### Running the utility with beta environment
 ```sh
 npx @janiscommerce/event-subscribers-builder -e beta
-
-# Will get the source files from /path/to/root/events/src
-# Will generate the output file into /path/to/root/events/subscribers.yml
 ```
 
-## Usage (as module)
-```js
-const EventSubscribersBuilder = require('@janiscommerce/event-subscribers-builder');
-```
-
-## API
-
-### **`new eventSubscribersBuilder(environment, input, output, schemas)`**
-
-Constructs the YmlBuilder instance, configuring the `environment [String]`, `input [String]`, `output [String]` and built api `schemas [String]` path.
-
-### **`async execute(environment, input, output, schemas)`**
-
-Builds the ymls from the input path into the output file path.
-Optionally you can specify the `environment [String]`, `input [String]`, `output [String]` and `schemas [String]` path, by default it will be obtained from the constructor config.
-
-## Examples
-
-```js
-const EventSubscribersBuilder = require('@janiscommerce/event-subscribers-builder');
-
-const eventSubscribersBuilder = new EventSubscribersBuilder('environment', 'input-dir', 'output-file.yml', 'schemas/public.json');
-
-(async () => {
-
-	await eventSubscribersBuilder.execute(); // It will run the build process...
-
-})();
+### Event yaml example (after running the utility)
+```yaml
+events:
+  - service: some-service
+    entity: some-entity
+    event: some-event
+    listeners:
+      - namespace: http://some-server.com/api/some-path
+        method: get
 ```

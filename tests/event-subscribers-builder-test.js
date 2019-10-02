@@ -8,7 +8,7 @@ const EndpointResolver = require('@janiscommerce/endpoint-resolver');
 const YmlBuilder = require('@janiscommerce/yml-builder');
 const fs = require('./../lib/utils/promisified-fs');
 
-const EventSubscribersBuilder = require('./../index');
+const { EventSubscribersBuilder } = require('./../lib');
 
 const EventSubscribersBuilderError = require('./../lib/event-subscribers-builder-error');
 

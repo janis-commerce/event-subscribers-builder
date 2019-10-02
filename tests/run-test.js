@@ -18,7 +18,7 @@ describe('index', () => {
 	beforeEach(() => {
 		sandbox.stub(process, 'exit').returns();
 		sandbox.stub(console, 'log').returns();
-		EventSubscribersBuilder = require('./../index'); // eslint-disable-line
+		EventSubscribersBuilder = require('./../lib/event-subscribers-builder'); // eslint-disable-line
 	});
 
 	afterEach(() => {
@@ -33,7 +33,7 @@ describe('index', () => {
 			.expects('execute')
 			.returns();
 
-		const index = require('./../run'); // eslint-disable-line
+		const index = require('./../index'); // eslint-disable-line
 
 		eventSubscribersBuilderMock.verify();
 	});
@@ -44,7 +44,7 @@ describe('index', () => {
 			.expects('execute')
 			.rejects();
 
-		const index = require('./../run'); // eslint-disable-line
+		const index = require('./../index'); // eslint-disable-line
 
 		eventSubscribersBuilderMock.verify();
 	});
