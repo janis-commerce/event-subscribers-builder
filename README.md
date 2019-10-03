@@ -29,13 +29,12 @@ This package will merge all the yamls from the directory `/path/to/root/events/s
 
 ### Event yaml example (before running the utility)
 ```yaml
-events:
-  - service: some-service
-    entity: some-entity
-    event: some-event
-    listeners:
-      - namespace: some-namespace
-        method: some-method
+- service: some-service
+  entity: some-entity
+  event: some-event
+  listeners:
+    - namespace: some-namespace
+      method: some-method
 ```
 
 ### Built schemas example
@@ -70,11 +69,9 @@ npx @janiscommerce/event-subscribers-builder -e beta
 
 ### Event yaml example (after running the utility)
 ```yaml
-events:
-  - service: some-service
-    entity: some-entity
-    event: some-event
-    listeners:
-      - namespace: http://some-server.com/api/some-path
-        method: get
+- service: some-service
+  entity: some-entity
+  event: some-event
+  listeners:
+    - https://some-server.com/api/some-path
 ```

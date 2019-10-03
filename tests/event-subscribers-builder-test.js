@@ -125,23 +125,16 @@ describe('EventSubscribersBuilder', () => {
 
 			const endpointResolverSpy = sandbox.spy(EndpointResolver.prototype, 'resolve');
 
-			const fakeYml = {
-				events: [{
-					listeners: [{
-						namespace: 'some-entity',
-						method: 'get'
-					}]
+			const fakeYml = [{
+				listeners: [{
+					namespace: 'some-entity',
+					method: 'get'
 				}]
-			};
+			}];
 
-			assert.deepStrictEqual(await eventSubscribersBuilder._resolveEndpoints('local', fakeSchemas, fakeYml), {
-				events: [{
-					listeners: [{
-						method: 'get',
-						namespace: 'https://someserver.com/api/some-entity'
-					}]
-				}]
-			});
+			assert.deepStrictEqual(await eventSubscribersBuilder._resolveEndpoints('local', fakeSchemas, fakeYml), [{
+				listeners: ['https://someserver.com/api/some-entity']
+			}]);
 
 			sandbox.assert.calledOnce(endpointResolverSpy);
 			sandbox.assert.calledWithExactly(endpointResolverSpy, 'some-entity', 'get');
@@ -163,14 +156,12 @@ describe('EventSubscribersBuilder', () => {
 
 			const endpointResolverSpy = sandbox.spy(EndpointResolver.prototype, 'resolve');
 
-			const fakeYml = {
-				events: [{
-					listeners: [{
-						namespace: 'some-entity',
-						method: 'get'
-					}]
+			const fakeYml = [{
+				listeners: [{
+					namespace: 'some-entity',
+					method: 'get'
 				}]
-			};
+			}];
 
 			await assert.rejects(eventSubscribersBuilder._resolveEndpoints('local', {}, fakeYml), {
 				name: 'EventSubscribersBuilderError',
@@ -185,11 +176,9 @@ describe('EventSubscribersBuilder', () => {
 
 			const endpointResolverSpy = sandbox.spy(EndpointResolver.prototype, 'resolve');
 
-			const fakeYml = {
-				events: [{
-					listeners: {}
-				}]
-			};
+			const fakeYml = [{
+				listeners: {}
+			}];
 
 			await assert.rejects(eventSubscribersBuilder._resolveEndpoints('local', fakeSchemas, fakeYml), {
 				name: 'EventSubscribersBuilderError',
@@ -203,11 +192,9 @@ describe('EventSubscribersBuilder', () => {
 
 			const endpointResolverSpy = sandbox.spy(EndpointResolver.prototype, 'resolve');
 
-			const fakeYml = {
-				events: [{
-					listeners: [{}]
-				}]
-			};
+			const fakeYml = [{
+				listeners: [{}]
+			}];
 
 			await assert.rejects(eventSubscribersBuilder._resolveEndpoints('local', fakeSchemas, fakeYml), {
 				name: 'EventSubscribersBuilderError',
@@ -263,14 +250,12 @@ describe('EventSubscribersBuilder', () => {
 
 		it('should build the ymls then resolve the endpoints to the built file', async () => {
 
-			const fakeYml = YAML.stringify({
-				events: [{
-					listeners: [{
-						namespace: 'some-namespace',
-						method: 'some-method'
-					}]
+			const fakeYml = YAML.stringify([{
+				listeners: [{
+					namespace: 'some-namespace',
+					method: 'some-method'
 				}]
-			});
+			}]);
 
 			const ymlBuilderMock = sandbox.mock(YmlBuilder.prototype);
 			const endpointResolverMock = sandbox.mock(EndpointResolver.prototype);
@@ -346,14 +331,12 @@ describe('EventSubscribersBuilder', () => {
 
 			eventSubscribersBuilderMock.expects('_getSourceYml')
 				.withExactArgs(outputPath)
-				.returns({
-					events: [{
-						listeners: [{
-							namespace: 'some-namespace',
-							method: 'some-method'
-						}]
+				.returns([{
+					listeners: [{
+						namespace: 'some-namespace',
+						method: 'some-method'
 					}]
-				});
+				}]);
 
 			endpointResolverMock.expects('resolve')
 				.withExactArgs('some-namespace', 'some-method')
