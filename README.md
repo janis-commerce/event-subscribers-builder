@@ -12,7 +12,7 @@ npx @janiscommerce/event-subscribers-builder
 
 ### Options:
 ```
---environment, -e  environment for resolving the listeners endpoints
+--environment, -e  environment for resolving the listeners endpoints [Default: `local`]
 ```
 
 ### Paths

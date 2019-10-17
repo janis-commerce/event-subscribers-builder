@@ -7,10 +7,10 @@ const { argv } = require('yargs')
 		alias: 'e',
 		describe: 'environment for resolving the listeners endpoints',
 		type: 'string',
-		demandOption: true
+		default: 'local'
 	});
 
-const { EventSubscribersBuilder } = require('./lib');
+const EventSubscribersBuilder = require('./lib/event-subscribers-builder');
 const log = require('./lib/utils/lllog-wrapper');
 
 const INPUT_PATH = 'events/src';

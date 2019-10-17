@@ -2,7 +2,7 @@
   "name": "@janiscommerce/event-subscribers-builder",
   "version": "1.0.0",
   "description": "A package for build event suscribers",
-  "main": "index.js",
+  "main": "lib/event-subscribers-builder.js",
   "bin": {
     "event-subscribers-builder": "index.js"
   },
@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@janiscommerce/endpoint-resolver": "^1.0.0",
-    "@janiscommerce/yml-builder": "^2.0.0",
+    "@janiscommerce/yml-builder": "^2.0.1",
     "chalk": "^2.4.2",
     "lllog": "^1.1.2",
     "yaml": "^1.7.0",

@@ -8,7 +8,7 @@ const EndpointResolver = require('@janiscommerce/endpoint-resolver');
 const YmlBuilder = require('@janiscommerce/yml-builder');
 const fs = require('./../lib/utils/promisified-fs');
 
-const { EventSubscribersBuilder } = require('./../lib');
+const EventSubscribersBuilder = require('./../lib/event-subscribers-builder');
 
 const EventSubscribersBuilderError = require('./../lib/event-subscribers-builder-error');
 
@@ -291,6 +291,33 @@ describe('EventSubscribersBuilder', () => {
 			await assert.doesNotReject(eventSubscribersBuilder.execute());
 
 			endpointResolverMock.verify();
+			ymlBuilderMock.verify();
+			fsMock.verify();
+		});
+
+		it('should not reject when the source file is empty', async () => {
+
+			const ymlBuilderMock = sandbox.mock(YmlBuilder.prototype);
+			const eventSubscribersBuilderMock = sandbox.mock(EventSubscribersBuilder.prototype);
+
+			const fsMock = sandbox.mock(fs).expects('writeFile')
+				.withArgs(outputPath)
+				.returns();
+
+			eventSubscribersBuilderMock.expects('_validateBuiltSchemas')
+				.withExactArgs(schemasPath)
+				.returns();
+
+			ymlBuilderMock.expects('execute')
+				.returns(new Promise(res => res()));
+
+			eventSubscribersBuilderMock.expects('_getSourceYml')
+				.withExactArgs(outputPath)
+				.returns(null);
+
+			await assert.doesNotReject(eventSubscribersBuilder.execute());
+
+			eventSubscribersBuilderMock.verify();
 			ymlBuilderMock.verify();
 			fsMock.verify();
 		});
