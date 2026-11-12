@@ -6,11 +6,11 @@ const path = require('path');
 const YAML = require('yaml');
 const EndpointResolver = require('@janiscommerce/endpoint-resolver');
 const YmlBuilder = require('@janiscommerce/yml-builder');
-const fs = require('./../lib/utils/promisified-fs');
+const fs = require('../lib/utils/promisified-fs');
 
-const EventSubscribersBuilder = require('./../lib/event-subscribers-builder');
+const EventSubscribersBuilder = require('../lib/event-subscribers-builder');
 
-const EventSubscribersBuilderError = require('./../lib/event-subscribers-builder-error');
+const EventSubscribersBuilderError = require('../lib/event-subscribers-builder-error');
 
 const fakeSchemas = {
 	servers: [{
@@ -238,7 +238,7 @@ describe('EventSubscribersBuilder', () => {
 
 			const ymlBuilderMock = sandbox.mock(YmlBuilder.prototype).expects('execute')
 				.withExactArgs()
-				.returns(new Promise(res => res()));
+				.returns(Promise.resolve());
 
 			await assert.doesNotReject(eventSubscribersBuilder._buildYmls(inputPath, outputPath));
 
@@ -268,7 +268,7 @@ describe('EventSubscribersBuilder', () => {
 
 			// _buildYmls
 			ymlBuilderMock.expects('execute')
-				.returns(new Promise(res => res()));
+				.returns(Promise.resolve());
 
 			// _getSourceYml
 			fsMock.expects('readFile')
@@ -309,7 +309,7 @@ describe('EventSubscribersBuilder', () => {
 				.returns();
 
 			ymlBuilderMock.expects('execute')
-				.returns(new Promise(res => res()));
+				.returns(Promise.resolve());
 
 			eventSubscribersBuilderMock.expects('_getSourceYml')
 				.withExactArgs(outputPath)
@@ -354,7 +354,7 @@ describe('EventSubscribersBuilder', () => {
 				.returns();
 
 			ymlBuilderMock.expects('execute')
-				.returns(new Promise(res => res()));
+				.returns(Promise.resolve());
 
 			eventSubscribersBuilderMock.expects('_getSourceYml')
 				.withExactArgs(outputPath)
@@ -389,8 +389,7 @@ describe('EventSubscribersBuilder', () => {
 				.returns();
 
 			eventSubscribersBuilderMock.expects('_buildYmls')
-				.returns(new Promise(res => res()));
-
+				.returns(Promise.resolve());
 
 			eventSubscribersBuilderMock.expects('_getSourceYml')
 				.withExactArgs(outputPath)
